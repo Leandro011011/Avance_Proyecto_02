@@ -157,6 +157,9 @@ public class Ventana {
     private JTextField txtNombreBuscarNombreTecnico;
     private JTextArea txtInfoTecnicoBuscadoNombre;
     private JButton btnBuscarTecnicoNombre;
+    private JTextField txtIdTecnicoRutaMinima;
+    private JTextArea txtInfoRutaMinima;
+    private JButton btnCalcularRutaMinima;
 
     int indexTecnico;
     int indexCliente;
@@ -1193,12 +1196,71 @@ public class Ventana {
             }
         });
 
-        //TODO: IMPLEMENTAR UANS ECCION DE MAPA QUE SE APLIQUE GRAFOS
-        //TODO: EN ESA SECCION SE DEBE VISUALIZAR DEPENDIENDO EL TECNICO Y SUS CASOS ASIGNADOS
-        //TODO: MUESTRE UNSA RUTA DE QUE CASO ATENDER PRIMERO( DEPENDIENDO DE LA URGENCIA DEL CASO)
-        //TODO: SE DIRIGIRA HACIA LA DIRECCION
-        //TODO: MANEJAMOS 3 CLIENTE Alcotech - 10 KM InfoTech - 12 KM AntoTech - 8KM
+        /// SECCION MAPA
+        // BOTON CALCULA RUTA MAS CORTA DEPENDIENDO DEL TECNICO
+        btnCalcularRutaMinima.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
+                String textoId = txtIdTecnicoRutaMinima.getText().trim();
+                if (textoId.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Ingrese el ID del tecnico.");
+                    return;
+                }
+
+                //solo numeros
+                boolean soloNumeros = true;
+                for (int i = 0; i < textoId.length(); i++) {
+                    char c = textoId.charAt(i);
+                    if (c < '0' || c > '9') {
+                        soloNumeros = false;
+                    }
+                }
+                if (soloNumeros == false) {
+                    JOptionPane.showMessageDialog(null, "El ID del tecnico debe contener solo numeros.");
+                    return;
+                }
+
+                int idTecnico = Integer.parseInt(textoId);
+
+                if (idTecnico <= 0) {
+                    JOptionPane.showMessageDialog(null, "El ID del tecnico debe ser mayor a 0.");
+                    return;
+                }
+
+                if (gestorTecnicos.getListaTecnicos().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "No hay tecnicos registrados.");
+                    return;
+                }
+
+                Tecnico tecnico = gestorTecnicos.buscarTecnicoPorIdBinaria(idTecnico);
+                if (tecnico == null) {
+                    JOptionPane.showMessageDialog(null, "No existe un tecnico con ID: " + idTecnico);
+                    return;
+                }
+
+                if (gestorAsignaciones.getListaAsignaciones().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "No hay asignaciones registradas.");
+                    return;
+                }
+
+                //Crear grafo
+                MapaDistancias mapa = new MapaDistancias();
+                Grafo grafo = mapa.crearGrafoBaseParaTecnico(idTecnico);
+
+                //Generar ruta
+                PlanificadorRuta planificador = new PlanificadorRuta(grafo);
+                String resultado = planificador.generarRutaTextoParaTecnico(
+                        idTecnico,
+                        gestorAsignaciones,
+                        gestorCasos,
+                        gestorClientes
+                );
+
+                //resultado
+                txtInfoRutaMinima.setText(resultado);
+            }
+        });
 
     }
 
