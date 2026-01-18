@@ -1,3 +1,4 @@
+import java.net.IDN;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +54,24 @@ public class GestorTecnicos {
         return null;
     }
 
+    // Metodo para que no se repita los IDs de los tecnicos
+    public boolean existeIdTecnico(int id){
+        for (Tecnico actualId: listaTecnicos){
+            if ( actualId.getIdTecnico() == id){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Tecnico buscarTecnicoNombre(String nombre){
+        for (Tecnico tecnico: listaTecnicos){
+            if (tecnico.getNombre().trim().equals(nombre)){
+                return tecnico;
+            }
+        }
+        return null;
+    }
 
     public void ordenarTecnicosPorNombreBurbuja(){
         Tecnico aux;

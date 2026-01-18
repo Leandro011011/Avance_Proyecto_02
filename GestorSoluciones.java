@@ -43,6 +43,16 @@ public class GestorSoluciones {
         return null;
     }
 
+    //Metodo para que no se repita los IDs de las soluciones
+    public boolean existeIdSolucion(int id){
+        for (Solucion actualId: soluciones){
+            if ( actualId.getIdSolucion() == id ){
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public void ordenarSolucionesPorIdBurbuja() {
         Solucion aux;

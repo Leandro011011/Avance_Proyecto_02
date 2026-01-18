@@ -52,6 +52,16 @@ public class GestorClientes {
         return null;
     }
 
+    //Netodo para que no repita los IDs de los clientes
+    public boolean existeIdCliente(int id){
+        for (Cliente actualId: clientes){
+            if ( actualId.getIdCliente() == id ){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void ordenarClientesPorNombreBurbuja(){
         Cliente aux;
         for (int i = 0; i < clientes.size() - 1; i++) {

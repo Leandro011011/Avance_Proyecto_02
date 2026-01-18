@@ -154,6 +154,9 @@ public class Ventana {
     GestorSoluciones gestorSoluciones = new GestorSoluciones();
     GestorAsignaciones gestorAsignaciones = new GestorAsignaciones();
     private JTextArea txtInfoCasosOrdenar;
+    private JTextField txtNombreBuscarNombreTecnico;
+    private JTextArea txtInfoTecnicoBuscadoNombre;
+    private JButton btnBuscarTecnicoNombre;
 
     int indexTecnico;
     int indexCliente;
@@ -310,7 +313,10 @@ public class Ventana {
                 if ( nombre.isEmpty() || correo.isEmpty() || contrasena.isEmpty() || especialidad.isEmpty() || textoActividad.isEmpty() || textoDisponibilidad.isEmpty() ) {
                     JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos obligatorios.");
                     return;
-                }else {
+                } else if ( gestorTecnicos.existeIdTecnico(idTecnico) == true){
+                    JOptionPane.showMessageDialog(null, "Error, ese ID que intenta registrar ya se encuentra registrado", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+
                     Tecnico tecnico = new Tecnico(idTecnico, nombre, correo, contrasena,
                             actividad, especialidad, nivelExperiencia, disponible);
                     gestorTecnicos.agregarTecnico(tecnico);
@@ -534,7 +540,9 @@ public class Ventana {
                 if ( nombre.isEmpty() || empresa.isEmpty() || telefono.isEmpty() || correo.isEmpty() ) {
                     JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos obligatorios.");
                     return;
-                }else {
+                } else if ( gestorClientes.existeIdCliente(idCliente) == true ) {
+                    JOptionPane.showMessageDialog(null, "Error, ese id que intenta ingresar ya se ha ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
                     Cliente cliente = new Cliente(idCliente, nombre, empresa, telefono, correo);
                     gestorClientes.agregarCliente(cliente);
                     JOptionPane.showMessageDialog(null, "Cliente registrado exitosamente.");
@@ -670,6 +678,8 @@ public class Ventana {
                 String fechaCierre = txtFechaCierreCaso.getText();
                 int idCliente = 0; //SE BUSCARA EL CLIENTE POR ID CON LOS METODOS DEL GESTOR
                 int idTecnico = 0; //SE BUSCARA EL TECNICO POR ID CON LOS METODOS DEL GESTOR
+                
+                // En el caso de que no hay clientes registrados, sin clientes no hay casos
                 if (gestorClientes.getClientes().isEmpty()) {
                     JOptionPane.showMessageDialog(null, "No hay clientes registrados. Por favor, registre un cliente primero.");
                     return;
@@ -682,7 +692,8 @@ public class Ventana {
                     }
                     idCliente = cliente.getIdCliente();
                 }
-
+                
+                // En el caso de que no hay tecnicos registrados, sin tecnicos no hay caso que se pueda resolver
                 if (gestorTecnicos.getListaTecnicos().isEmpty()) {
                     JOptionPane.showMessageDialog(null, "No hay técnicos registrados. Por favor, registre un técnico primero.");
                     return;
@@ -700,7 +711,9 @@ public class Ventana {
                 if ( titulo.isEmpty() || descripcion.isEmpty() || estado.isEmpty() || canal.isEmpty() || fechaCreacion.isEmpty() || fechaCierre.isEmpty() ) {
                     JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos obligatorios.");
                     return;
-                }else {
+                } else if ( gestorCasos.existeIdCaso(idCaso) == true ) {
+                    JOptionPane.showMessageDialog(null, "Error, ese id que intenta ingresar ya se ha ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
                     Caso caso = new Caso(idCaso, titulo, descripcion, prioridad, estado,
                             canal, fechaCreacion, fechaCierre, idCliente, idTecnico);
                     gestorCasos.agregarCaso(caso);
@@ -886,7 +899,9 @@ public class Ventana {
                 if ( fechaAsignacion.isEmpty() || fechaInicio.isEmpty() || fechaFin.isEmpty() || estadoAsignacion.isEmpty() ) {
                     JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos obligatorios.");
                     return;
-                }else {
+                } else if ( gestorAsignaciones.existeIdAsignacion(idAsignacion) == true ) {
+                    JOptionPane.showMessageDialog(null, "Error, ese id que intenta ingresar ya se ha ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
                     Asignacion asignacion = new Asignacion(idAsignacion, idCaso, idTecnico,
                             fechaAsignacion, fechaInicio, fechaFin, estadoAsignacion);
                     gestorAsignaciones.agregarAsignacion(asignacion);
@@ -1031,7 +1046,9 @@ public class Ventana {
                 if ( descripcionSolucion.isEmpty() || fechaSolucion.isEmpty() ) {
                     JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos obligatorios.");
                     return;
-                }else {
+                } else if (gestorSoluciones.existeIdSolucion(idSolucion) == true) {
+                    JOptionPane.showMessageDialog(null, "Error, ese id que intenta ingresar ya se ha ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
                     Solucion solucion = new Solucion(idSolucion, descripcionSolucion, fechaSolucion,
                             idTecnico, idCaso, notaAdicional);
                     gestorSoluciones.agregarSolucion(solucion);
@@ -1155,6 +1172,34 @@ public class Ventana {
                 }
             }
         });
+
+        // BUSCAR A UN TECNICO POR SU NOMBRE,
+        btnBuscarTecnicoNombre.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                if (gestorTecnicos.getListaTecnicos().isEmpty()){
+                    JOptionPane.showMessageDialog(null, "Error, aun no se han registrado tecnicos");
+                    return;
+                }
+
+                String nombreTecnicoBuscar = txtNombreBuscarNombreTecnico.getText();
+                if (gestorTecnicos.buscarTecnicoNombre(nombreTecnicoBuscar) == null){
+                    JOptionPane.showMessageDialog(null, "Error, no se ha encontrado un tecnico con ese nombre");
+                    return;
+                }
+                JOptionPane.showMessageDialog(null, "Exito, se lo encontro, cargando...");
+                txtInfoTecnicoBuscadoNombre.setText(gestorTecnicos.buscarTecnicoNombre(nombreTecnicoBuscar).toString());
+            }
+        });
+
+        //TODO: IMPLEMENTAR UANS ECCION DE MAPA QUE SE APLIQUE GRAFOS
+        //TODO: EN ESA SECCION SE DEBE VISUALIZAR DEPENDIENDO EL TECNICO Y SUS CASOS ASIGNADOS
+        //TODO: MUESTRE UNSA RUTA DE QUE CASO ATENDER PRIMERO( DEPENDIENDO DE LA URGENCIA DEL CASO)
+        //TODO: SE DIRIGIRA HACIA LA DIRECCION
+        //TODO: MANEJAMOS 3 CLIENTE Alcotech - 10 KM InfoTech - 12 KM AntoTech - 8KM
+
+
     }
 
     public static void main(String[] args) {

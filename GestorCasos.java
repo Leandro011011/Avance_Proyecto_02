@@ -53,6 +53,17 @@ public class GestorCasos {
         return null;
     }
 
+    // Metodo para que no repita IDs en los casos
+    public boolean existeIdCaso(int id){
+        for (Caso actualId: casos){
+            if ( actualId.getIdCaso() == id ){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public void ordenarCasosPorPrioridadBurbuja(){
         Caso aux;
         for (int i = 0; i < casos.size() - 1; i++) {

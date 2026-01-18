@@ -13,6 +13,10 @@ public class GestorAsignaciones {
         return listaAsignaciones;
 
     }
+    //TODO: IMPLEMENTAR EN CADA GESTOR UN METODO DE BARRIDO, BUSQUEDA LINEAL
+    //TODO: QUE BUSQUE SI ALGUN CASO, TECNICO, ETC, YA TIENE EL ID QUE SE DESEA REGISTRAR
+    //TODO: PARA QUE NO SE REPITAN LOS IDS, CON UN FOREACH
+
 
     public void agregarAsignacion(Asignacion asignacion) {
         this.listaAsignaciones.add(asignacion);
@@ -27,9 +31,11 @@ public class GestorAsignaciones {
             if(listaAsignaciones.get(m).getIdAsignacion() == id){
                 listaAsignaciones.remove(m);
                 return true;
+            // si el referente de la mitad es menor al id que se busca
+            // pues acortamos el inicio, porque todos esos son menores, incluido el actual
             } else if(listaAsignaciones.get(m).getIdAsignacion() < id){
                 i = m + 1;
-            } else {
+            } else { // y si es mayor el de la mitad pues acortamos el final
                 f = m - 1;
             }
         }
@@ -53,14 +59,27 @@ public class GestorAsignaciones {
         return null;
     }
 
+    //Metodo de busqueda lineal para que los IDs no se repitan
+    public boolean existeIdAsignacion(int id){
+        for(Asignacion actualId: listaAsignaciones){// busca entre todos los ids de la lista
+            if (actualId.getIdAsignacion() == id){// si existe ese id en la lista retorna true
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+//    SE ORDENA LAS ASIGNACIONES SEGUN SU ID
     public void orderarAsignaciones(){
         Asignacion aux;
         for(int i = 0; i < listaAsignaciones.size() - 1; i++){
             for(int j = i + 1; j < listaAsignaciones.size(); j++){
+//                SI ES MAYOR EL ANTERIOR , PUES ACPLICAMOS EL BURBUJEO
                 if(listaAsignaciones.get(i).getIdAsignacion() > listaAsignaciones.get(j).getIdAsignacion()){
-                    aux = listaAsignaciones.get(i);
-                    listaAsignaciones.set(i, listaAsignaciones.get(j));
-                    listaAsignaciones.set(j, aux);
+                    aux = listaAsignaciones.get(i);// GUARDAMOS EN AUX LO DE I
+                    listaAsignaciones.set(i, listaAsignaciones.get(j)); // ESTABLECEMOS LO DE J EN I
+                    listaAsignaciones.set(j, aux); // ESTABLECEMOS LO DE AUX(I) EN J
                 }
             }
         }
