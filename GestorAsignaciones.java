@@ -13,10 +13,6 @@ public class GestorAsignaciones {
         return listaAsignaciones;
 
     }
-    //TODO: IMPLEMENTAR EN CADA GESTOR UN METODO DE BARRIDO, BUSQUEDA LINEAL
-    //TODO: QUE BUSQUE SI ALGUN CASO, TECNICO, ETC, YA TIENE EL ID QUE SE DESEA REGISTRAR
-    //TODO: PARA QUE NO SE REPITAN LOS IDS, CON UN FOREACH
-
 
     public void agregarAsignacion(Asignacion asignacion) {
         this.listaAsignaciones.add(asignacion);
