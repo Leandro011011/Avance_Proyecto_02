@@ -11,6 +11,7 @@ public class GestorTecnicos {
     }
 
     public List<Tecnico> getListaTecnicos() {
+        ordenarTecnicosPorIdBurbuja();
         return listaTecnicos;
     }
     public void agregarTecnico(Tecnico tecnico) {

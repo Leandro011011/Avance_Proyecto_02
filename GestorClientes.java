@@ -10,11 +10,12 @@ public class GestorClientes {
     }
 
     public List<Cliente> getClientes() {
+        ordenarClientesPorIdBurbuja();
         return clientes;
     }
     public void agregarCliente(Cliente cliente) {
         this.clientes.add(cliente);
-        ordenarClientesPorIdInsercion();
+        ordenarClientesPorIdBurbuja();
     }
     public boolean eliminarCliente(int idCliente){
         int i = 0;
@@ -75,7 +76,7 @@ public class GestorClientes {
         }
     }
 
-    public void ordenarClientesPorIdInsercion() {
+    public void ordenarClientesPorIdBurbuja() {
         Cliente aux;
         for (int i = 0; i < clientes.size() - 1; i++) {
             for (int j = i+1; j < clientes.size(); j++) {

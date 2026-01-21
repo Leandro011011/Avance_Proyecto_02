@@ -263,11 +263,11 @@ public class Ventana {
         SpinnerNumberModel modeloIdClienteCaso = new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1);
         spnIdClienteCaso.setModel(modeloIdClienteCaso);
         SpinnerNumberModel modeloIdTecnicoCaso1 = new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1);
-        spnIdTecnicoCaso.setModel(modeloIdTecnicoCaso1);
+
         SpinnerNumberModel modeloIdClienteCasoEditar = new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1);
         spnIdClienteCasoEditar.setModel(modeloIdClienteCasoEditar);
         SpinnerNumberModel modeloIdTecnicoCasoEditar = new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1);
-        spnTecnicoCasoEditar.setModel(modeloIdTecnicoCasoEditar);
+
         SpinnerNumberModel modeloIdTecnicoAsignacion = new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1);
         spnIdTecnicoAsignacion.setModel(modeloIdTecnicoAsignacion);
         SpinnerNumberModel modeloIdCasoAsignacion = new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1);
@@ -680,8 +680,7 @@ public class Ventana {
                 String fechaCreacion = txtFechaCreacionCaso.getText();
                 String fechaCierre = txtFechaCierreCaso.getText();
                 int idCliente = 0; //SE BUSCARA EL CLIENTE POR ID CON LOS METODOS DEL GESTOR
-                int idTecnico = 0; //SE BUSCARA EL TECNICO POR ID CON LOS METODOS DEL GESTOR
-                
+
                 // En el caso de que no hay clientes registrados, sin clientes no hay casos
                 if (gestorClientes.getClientes().isEmpty()) {
                     JOptionPane.showMessageDialog(null, "No hay clientes registrados. Por favor, registre un cliente primero.");
@@ -696,19 +695,7 @@ public class Ventana {
                     idCliente = cliente.getIdCliente();
                 }
                 
-                // En el caso de que no hay tecnicos registrados, sin tecnicos no hay caso que se pueda resolver
-                if (gestorTecnicos.getListaTecnicos().isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "No hay técnicos registrados. Por favor, registre un técnico primero.");
-                    return;
-                } else {
-                    idTecnico = (int) spnIdTecnicoCaso.getValue();
-                    Tecnico tecnico = gestorTecnicos.buscarTecnicoPorIdBinaria(idTecnico);
-                    if (tecnico == null) {
-                        JOptionPane.showMessageDialog(null, "No se encontró un técnico con el ID proporcionado.");
-                        return;
-                    }
-                    idTecnico = tecnico.getIdTecnico();
-                }
+
 
 
                 if ( titulo.isEmpty() || descripcion.isEmpty() || estado.isEmpty() || canal.isEmpty() || fechaCreacion.isEmpty() || fechaCierre.isEmpty() ) {
@@ -718,7 +705,7 @@ public class Ventana {
                     JOptionPane.showMessageDialog(null, "Error, ese id que intenta ingresar ya se ha ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
                     Caso caso = new Caso(idCaso, titulo, descripcion, prioridad, estado,
-                            canal, fechaCreacion, fechaCierre, idCliente, idTecnico);
+                            canal, fechaCreacion, fechaCierre, idCliente);
                     gestorCasos.agregarCaso(caso);
                     JOptionPane.showMessageDialog(null, "Caso registrado exitosamente.");
                     llenarListaCasos();
@@ -760,7 +747,6 @@ public class Ventana {
                     txtFechCreacionCasoEditar.setText(caso.getFechaCreacion());
                     txtFechaFinalCasoEdit.setText(caso.getFechaCierre());
                     spnIdClienteCasoEditar.setValue(caso.getCliente());
-                    spnTecnicoCasoEditar.setValue(caso.getTecnicoAsignado());
                 }
             }
         });
@@ -777,14 +763,13 @@ public class Ventana {
                 String fechaCreacion = txtFechCreacionCasoEditar.getText();
                 String fechaCierre = txtFechaFinalCasoEdit.getText();
                 int idCliente = (int) spnIdClienteCasoEditar.getValue();
-                int idTecnico = (int) spnTecnicoCasoEditar.getValue();
 
                 if ( titulo.isEmpty() || descripcion.isEmpty() || estado.isEmpty() || canal.isEmpty() || fechaCreacion.isEmpty() || fechaCierre.isEmpty() ) {
                     JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos obligatorios.");
                     return;
                 }else {
                     Caso caso = new Caso(idCaso, titulo, descripcion, prioridad, estado,
-                            canal, fechaCreacion, fechaCierre, idCliente, idTecnico);
+                            canal, fechaCreacion, fechaCierre, idCliente);
                     gestorCasos.getCasos().set(indexCaso, caso);
                     JOptionPane.showMessageDialog(null, "Caso editado exitosamente.");
                     llenarListaCasos();
@@ -810,8 +795,7 @@ public class Ventana {
                             "Canal de Contacto: " + caso.getCanalContacto() + "\n" +
                             "Fecha de Creación: " + caso.getFechaCreacion() + "\n" +
                             "Fecha de Cierre: " + caso.getFechaCierre() + "\n" +
-                            "ID Cliente: " + caso.getCliente() + "\n" +
-                            "ID Técnico Asignado: " + caso.getTecnicoAsignado();
+                            "ID Cliente: " + caso.getCliente() + "\n";
                     txtInfoCasoEliminar.setText(info);
                 }
             }
@@ -853,8 +837,7 @@ public class Ventana {
                                 .append("Canal de Contacto: ").append(caso.getCanalContacto()).append("\n")
                                 .append("Fecha de Creación: ").append(caso.getFechaCreacion()).append("\n")
                                 .append("Fecha de Cierre: ").append(caso.getFechaCierre()).append("\n")
-                                .append("ID Cliente: ").append(caso.getCliente()).append("\n")
-                                .append("ID Técnico Asignado: ").append(caso.getTecnicoAsignado()).append("\n\n");
+                                .append("ID Cliente: ").append(caso.getCliente()).append("\n");
                     }
                     txtInfoCasosOrdenar.setText(info.toString());
                 }

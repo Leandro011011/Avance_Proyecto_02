@@ -11,9 +11,8 @@ public class Caso {
     private String fechaCreacion;
     private String fechaCierre;
     private int cliente;
-    private int tecnicoAsignado;
     //Metodos
-    public Caso(int idCaso, String titulo, String descripcion, int prioridad, String estado, String canalContacto, String fechaCreacion, String fechaCierre, int cliente, int tecnicoAsignado) {
+    public Caso(int idCaso, String titulo, String descripcion, int prioridad, String estado, String canalContacto, String fechaCreacion, String fechaCierre, int cliente) {
         this.idCaso = idCaso;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -23,7 +22,6 @@ public class Caso {
         this.fechaCreacion = fechaCreacion;
         this.fechaCierre = fechaCierre;
         this.cliente = cliente;
-        this.tecnicoAsignado = tecnicoAsignado;
     }
 
     public int getIdCaso() {
@@ -98,13 +96,6 @@ public class Caso {
         this.cliente = cliente;
     }
 
-    public int getTecnicoAsignado() {
-        return tecnicoAsignado;
-    }
-
-    public void setTecnicoAsignado(int tecnicoAsignado) {
-        this.tecnicoAsignado = tecnicoAsignado;
-    }
 
 
     @Override
@@ -118,7 +109,6 @@ public class Caso {
                 " | Canal Contacto: " + canalContacto  +
                 " | Fecha Creacion: " + fechaCreacion  +
                 " | Fecha Cierre: " + fechaCierre  +
-                " | ID Cliente: " + cliente +
-                " | Tecnico Asignado: " + tecnicoAsignado;
+                " | ID Cliente: " + cliente;
     }
 }

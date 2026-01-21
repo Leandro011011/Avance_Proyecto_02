@@ -1167,7 +1167,7 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <grid id="253c3" layout-manager="GridLayoutManager" row-count="12" column-count="12" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                  <grid id="253c3" layout-manager="GridLayoutManager" row-count="11" column-count="12" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                     <margin top="0" left="0" bottom="0" right="0"/>
                     <constraints>
                       <tabbedpane title="Registrar"/>
@@ -1185,7 +1185,7 @@
                       </component>
                       <vspacer id="f55ea">
                         <constraints>
-                          <grid row="11" column="0" row-span="1" col-span="11" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                          <grid row="10" column="0" row-span="1" col-span="11" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
                         </constraints>
                       </vspacer>
                       <component id="52c73" class="javax.swing.JLabel">
@@ -1258,14 +1258,6 @@
                         </constraints>
                         <properties>
                           <text value="ID Cliente: "/>
-                        </properties>
-                      </component>
-                      <component id="d1bcf" class="javax.swing.JLabel">
-                        <constraints>
-                          <grid row="10" column="0" row-span="1" col-span="10" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <text value="ID Tecnico: "/>
                         </properties>
                       </component>
                       <component id="fe5f0" class="javax.swing.JSpinner" binding="spnIdCaso">
@@ -1344,15 +1336,9 @@
                         </constraints>
                         <properties/>
                       </component>
-                      <component id="cd8f9" class="javax.swing.JSpinner" binding="spnIdTecnicoCaso">
-                        <constraints>
-                          <grid row="10" column="10" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties/>
-                      </component>
                       <component id="96a20" class="javax.swing.JButton" binding="btnRegistrarCaso">
                         <constraints>
-                          <grid row="11" column="11" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                          <grid row="10" column="11" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
                           <text value="Registrar Caso"/>
@@ -1399,7 +1385,7 @@
                       </component>
                     </children>
                   </grid>
-                  <grid id="19327" layout-manager="GridLayoutManager" row-count="15" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                  <grid id="19327" layout-manager="GridLayoutManager" row-count="14" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                     <margin top="0" left="0" bottom="0" right="0"/>
                     <constraints>
                       <tabbedpane title="Editar"/>
@@ -1524,17 +1510,9 @@
                           <text value="ID Cliente: "/>
                         </properties>
                       </component>
-                      <component id="f99f8" class="javax.swing.JLabel">
-                        <constraints>
-                          <grid row="13" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <text value="ID Tecnico: "/>
-                        </properties>
-                      </component>
                       <component id="1ef20" class="javax.swing.JButton" binding="btnEditarCaso">
                         <constraints>
-                          <grid row="14" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                          <grid row="13" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
                           <text value="Editar"/>
@@ -1613,12 +1591,6 @@
                       <component id="fdc63" class="javax.swing.JSpinner" binding="spnIdClienteCasoEditar">
                         <constraints>
                           <grid row="12" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties/>
-                      </component>
-                      <component id="f4ef6" class="javax.swing.JSpinner" binding="spnTecnicoCasoEditar">
-                        <constraints>
-                          <grid row="13" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties/>
                       </component>

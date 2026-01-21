@@ -10,6 +10,7 @@ public class GestorCasos {
     }
 
     public List<Caso> getCasos() {
+        ordenarCasosPorIdSeleccion();
         return casos;
     }
     public void agregarCaso(Caso caso) {

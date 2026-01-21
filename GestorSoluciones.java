@@ -10,6 +10,7 @@ public class GestorSoluciones {
     }
 
     public List<Solucion> getSoluciones() {
+        ordenarSolucionesPorIdBurbuja();
         return soluciones;
     }
     public void agregarSolucion(Solucion solucion) {
